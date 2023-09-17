@@ -13,28 +13,29 @@
  * -- if only key only exists in one object, that single key-value pair should be included in the object.
  * -- if a key is included in both objects, the value in the object from ``arr2`` should override the value from ``arr``.
  */
-
-/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @return {Array}
- */
 var join = function(arr1, arr2) {
-      
-   const combinedArray = arr1.concat(arr2); // first we will combine array1 and array2
-   const merged = {}; // declare merged which is object
-  
-    combinedArray.forEach((obj) => {
-      const id = obj.id;
-      if (!merged[id]) {
-        merged[id] = { ...obj };
-      } else {
-        merged[id] = { ...merged[id], ...obj };
-      }
-    });
-  
-    const joinedArray = Object.values(merged);
-    joinedArray.sort((a, b) => a.id - b.id);
-  
-    return joinedArray;
-  };
+    const combinedArray = arr1.concat(arr2); // Combine arr1 and arr2 into a single array.
+    const merged = {}; // Initialize an empty object for merging.
+ 
+    combinedArray.forEach((obj) => { // Iterate through each object in the combined array.
+       const id = obj.id; // Get the 'id' property of the current object.
+       if (!merged[id]) { // If 'id' is not already in the merged object.
+         merged[id] = { ...obj }; // Add the current object to merged using 'id' as the key.
+       } else {  
+         merged[id] = { ...merged[id], ...obj }; // Merge the current object with the existing one.
+       }
+     });
+   
+     const joinedArray = Object.values(merged); // Create an array from the values of the merged object.
+ 
+     // Example:
+     // If arr1 = [{ id: 1, name: 'Alice' }] and arr2 = [{ id: 2, name: 'Bob' }, { id: 1, age: 30 }],
+     // combinedArray will be [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }, { id: 1, age: 30 }].
+     // After merging and removing duplicates, joinedArray will be:
+     // [{ id: 1, name: 'Alice', age: 30 }, { id: 2, name: 'Bob' }] and returned as the result.
+ 
+     joinedArray.sort((a, b) => a.id - b.id); // Sort the array based on the 'id' property.
+ 
+     return joinedArray; // Return the final merged and sorted array.
+ };
+ 
